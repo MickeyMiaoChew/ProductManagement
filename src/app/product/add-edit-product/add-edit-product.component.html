@@ -1,0 +1,34 @@
+<div class="d-flex flex-row bd-highlight mb-3">
+    <div class="p-2 w-50 bd-highlight">
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">Name</span>
+        <input type="text" class="form-control" [(ngModel)]="productName">
+      </div>
+      
+      <div class="input-group mb-3">
+        <span class="input-group-text">Product Description</span>
+        <input type="text" class="form-control" [(ngModel)]="productDescription">
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">Product Price</span>
+        <input type="text" class="form-control" [(ngModel)]="productPrice">
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">Product Stock</span>
+        <input type="text" class="form-control" [(ngModel)]="productStock">
+      </div>
+    </div>
+
+  </div>
+  <button type="button" (click)="addProduct()" *ngIf="prd.productId=='0'" class="btn btn-primary">
+    Create
+  </button>
+  
+  <button type="button" (click)="updateProduct()" *ngIf="prd.productId!='0'" class="btn btn-primary">
+    Update
+  </button>
+  
+<!-- testcommit -->
