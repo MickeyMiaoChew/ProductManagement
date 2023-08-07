@@ -16,7 +16,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <app-add-edit-product [prd]="prd" [closeButtonClicked]="childPressClicked()" *ngIf="ActivateAddEditPrdComp">
+        <app-add-edit-product [prd]="prd" (closeButtonClicked)="childPressClicked()" *ngIf="ActivateAddEditPrdComp">
         </app-add-edit-product>
       </div>
     </div>
