@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Product } from './models/product';
 
 @Injectable({
   providedIn: 'root'
@@ -10,18 +11,18 @@ export class ApiserviceService {
   constructor(private http: HttpClient) { }
 
    //Product
-   getProductList(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'product');
+   getProductList(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.apiUrl + 'product');
   }
 
-  addProduct(prd: any): Observable<any> {
+  addProduct(prd: Product): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.http.post<any>(this.apiUrl + 'product', prd, httpOptions);
+    return this.http.post<Product>(this.apiUrl + 'product', prd, httpOptions);
   }
 
-  updateProduct(prd: any): Observable<any> {
+  updateProduct(prd: Product): Observable<Product> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.http.put<any>(this.apiUrl + 'product', prd, httpOptions);
+    return this.http.put<Product>(this.apiUrl + 'product', prd, httpOptions);
   }
 
   deleteProduct(prdId: number): Observable<number> {

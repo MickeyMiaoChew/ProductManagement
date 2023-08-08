@@ -46,16 +46,18 @@ export class ShowProductComponent implements OnInit {
     })
     .afterClosed()
     .subscribe((data: {product: Product}) => {
-      alert(data.product.name);
+      alert(data.product.productName);
       this.refreshEmpList();
       //call ur api
-      // this.service.addProduct(data.product).subscribe(res => {
-      //   alert(res.toString());
-      // });
+       this.service.addProduct(data.product).subscribe(res => {
+         alert(res.toString());
+       });
     })
   }
 
   editProductDialog(item: Product) {
+    this.refreshEmpList();
+    console.log('updateAPI' +''+this.dialog)
     this.dialog
     .open(AddEditProductDialogComponent, {
       width: '750px',
@@ -66,21 +68,17 @@ export class ShowProductComponent implements OnInit {
     })
     .afterClosed()
     .subscribe((data: {product: Product}) => {
-      alert(data.product.name);
-      this.refreshEmpList();
+  
+     alert('id '+data.product.productId +' name'+data.product.productName);
       //call ur api
-      // this.service.addProduct(data.product).subscribe(res => {
-      //   alert(res.toString());
-      // });
+      this.service.updateProduct(data.product).subscribe(res => {
+        alert(res.toString());
+        this.refreshEmpList();
+       });
     })
   }
 
-  //replaced to editProductDialog
-  editClick(item: any) {
-    this.prd = item;
-    this.dialogTitle = "Edit Product";
-    //this.ActivateAddEditPrdComp = true;
-  }
+
 
   deleteClick(item: any) {
     alert(item.productId.toString());
@@ -104,7 +102,4 @@ export class ShowProductComponent implements OnInit {
     });
   }
 
-  close() {
-    //this.ActivateAddEditPrdComp = false;
-  }
 }
