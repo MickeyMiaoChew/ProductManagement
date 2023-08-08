@@ -12,7 +12,7 @@ import { Product } from 'src/app/models/product';
 export class ShowProductComponent implements OnInit {
   constructor(private service: ApiserviceService, private dialog: MatDialog) { }
 
-  productList: any = [];
+  productList: Product[] = [];
   dialogTitle = "";
   ActivateAddEditPrdComp = true;
   productNameFilter = "";
@@ -50,7 +50,7 @@ export class ShowProductComponent implements OnInit {
       this.refreshEmpList();
       //call ur api
        this.service.addProduct(data.product).subscribe(res => {
-         alert(res.toString());
+         alert(res.message);
        });
     })
   }
@@ -69,10 +69,11 @@ export class ShowProductComponent implements OnInit {
     .afterClosed()
     .subscribe((data: {product: Product}) => {
   
-     alert('id '+data.product.productId +' name'+data.product.productName);
+     alert('id '+data.product.productId);
       //call ur api
       this.service.updateProduct(data.product).subscribe(res => {
-        alert(res.toString());
+        console.log(res);
+        alert(res.message);
         this.refreshEmpList();
        });
     })
@@ -97,8 +98,9 @@ export class ShowProductComponent implements OnInit {
   }
 
   refreshEmpList() {
-    this.service.getProductList().subscribe(data => {
-      this.productList = data;
+    this.service.getProductList().subscribe(response => {
+      this.productList = response.data;
+      console.log('productList', response.message)
     });
   }
 

@@ -5,3 +5,9 @@ export interface Product {
     productPrice: number;
     productStock: number;
 }
+
+export interface ApiResponse<T> {
+    success: boolean;
+    message: string;
+    data: T;
+  }
