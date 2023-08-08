@@ -1,5 +1,8 @@
-import { Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ApiserviceService } from 'src/app/apiservice.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AddEditProductDialogComponent } from '../add-edit-product-dialog/add-edit-product-dialog.component';
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-show-product',
@@ -7,11 +10,11 @@ import { ApiserviceService } from 'src/app/apiservice.service';
   styleUrls: ['./show-product.component.css']
 })
 export class ShowProductComponent implements OnInit {
-  constructor(private service: ApiserviceService) { }
+  constructor(private service: ApiserviceService, private dialog: MatDialog) { }
 
   productList: any = [];
-  ModalTitle = "";
-  ActivateAddEditPrdComp: boolean = false;
+  dialogTitle = "";
+  ActivateAddEditPrdComp = true;
   productNameFilter = "";
   productListWithoutFilter: any = [];
   prd: any;
@@ -28,14 +31,55 @@ export class ShowProductComponent implements OnInit {
       productStock: "",
 
     }
-    this.ModalTitle = "Add Product";
-    this.ActivateAddEditPrdComp = true;
+    this.dialogTitle = "Add Product";
+    //this.ActivateAddEditPrdComp = true;
   }
 
+  openAddProductDialog() {
+    this.dialog
+    .open(AddEditProductDialogComponent, {
+      width: '750px',
+      data: {
+        product: null,
+        dialogTitle: "Add Product"
+      }
+    })
+    .afterClosed()
+    .subscribe((data: {product: Product}) => {
+      alert(data.product.name);
+      this.refreshEmpList();
+      //call ur api
+      // this.service.addProduct(data.product).subscribe(res => {
+      //   alert(res.toString());
+      // });
+    })
+  }
+
+  editProductDialog(item: Product) {
+    this.dialog
+    .open(AddEditProductDialogComponent, {
+      width: '750px',
+      data: {
+        product: item,
+        dialogTitle: "Edit Product"
+      }
+    })
+    .afterClosed()
+    .subscribe((data: {product: Product}) => {
+      alert(data.product.name);
+      this.refreshEmpList();
+      //call ur api
+      // this.service.addProduct(data.product).subscribe(res => {
+      //   alert(res.toString());
+      // });
+    })
+  }
+
+  //replaced to editProductDialog
   editClick(item: any) {
     this.prd = item;
-    this.ModalTitle = "Edit Product";
-    this.ActivateAddEditPrdComp = true;
+    this.dialogTitle = "Edit Product";
+    //this.ActivateAddEditPrdComp = true;
   }
 
   deleteClick(item: any) {
@@ -49,7 +93,7 @@ export class ShowProductComponent implements OnInit {
   }
 
   closeClick() {
-    this.ActivateAddEditPrdComp = false;
+    //this.ActivateAddEditPrdComp = false;
     //this.closebuttonclicked.emit({ActivateAddEditPrdComp: false})
     this.refreshEmpList();
   }
@@ -59,10 +103,8 @@ export class ShowProductComponent implements OnInit {
       this.productList = data;
     });
   }
-childPressClicked(){
-  this.ActivateAddEditPrdComp = false;
-}
-  
 
-
+  close() {
+    //this.ActivateAddEditPrdComp = false;
+  }
 }

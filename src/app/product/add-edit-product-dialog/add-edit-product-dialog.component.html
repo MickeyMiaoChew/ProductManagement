@@ -1,0 +1,47 @@
+<div class="container-fluid row">
+  <h2 mat-dialog-title>{{data.dialogTitle}}</h2>
+  <form [formGroup]="formGroup">
+    <div mat-dialog-content>
+      <div class="input-group mb-3 mt-3">
+        <span class="input-group-text">Name</span>
+        <input type="text" class="form-control" formControlName="name">
+      </div>
+      
+      <div class="input-group mb-3">
+        <span class="input-group-text">Product Description</span>
+        <input type="text" class="form-control" formControlName="description">
+      </div>
+  
+      <div class="input-group mb-3">
+        <span class="input-group-text">Product Price</span>
+        <input type="text" class="form-control" formControlName="price">
+        <div *ngIf="formGroup.controls.price.errors?.['min'] && formGroup.controls.price.touched">Price should be greater than 0.</div>
+      </div>
+  
+      <div class="input-group mb-3">
+        <span class="input-group-text">Product Stock</span>
+        <input type="text" class="form-control" formControlName="stock">
+      </div>
+    </div>
+    <div mat-dialog-content>
+      <div *ngIf="formGroup.controls.name.errors?.['maxlength']">
+        Product name cannot exceed 50 characters
+      </div>
+      <div *ngIf="formGroup.controls.description.errors?.['maxlength']">
+        Product description cannot exceed 100 characters
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <button *ngIf="data.dialogTitle === 'Add Product'" type="button" class="btn btn-primary" (click)="onCreateOrUpdate()" [disabled]="formGroup.invalid || formGroup.disabled">
+        Create
+      </button>
+      <button *ngIf="data.dialogTitle === 'Edit Product'" type="button" class="btn btn-primary" (click)="onCreateOrUpdate()" [disabled]="formGroup.invalid || formGroup.disabled">
+        Update
+      </button>
+      <button mat-button mat-dialog-close class="btn btn-secondary" (click)="onCancel()">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>
+

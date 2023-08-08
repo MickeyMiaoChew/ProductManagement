@@ -9,13 +9,19 @@ import { ShowProductComponent } from './product/show-product/show-product.compon
 import { HttpClientModule } from "@angular/common/http";
 import { ApiserviceService } from "./apiservice.service";
 import { FormsModule,ReactiveFormsModule } from "@angular/forms";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { AddEditProductDialogComponent } from './product/add-edit-product-dialog/add-edit-product-dialog.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductComponent,
     AddEditProductComponent,
-    ShowProductComponent
+    ShowProductComponent,
+    AddEditProductDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -23,6 +29,9 @@ import { FormsModule,ReactiveFormsModule } from "@angular/forms";
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatIconModule,
   ],
   providers: [ApiserviceService],
   bootstrap: [AppComponent]

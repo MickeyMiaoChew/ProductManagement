@@ -7,7 +7,7 @@ import { ApiserviceService } from 'src/app/apiservice.service';
   styleUrls: ['./add-edit-product.component.css']
 })
 export class AddEditProductComponent implements OnInit {
-  @Output() closeButtonClicked = new EventEmitter<boolean>();;
+  @Output() closeButtonClicked = new EventEmitter<boolean>();
   constructor(private service: ApiserviceService) { }
   ProductList: any = [];
   @Input() prd: any;
@@ -30,7 +30,7 @@ export class AddEditProductComponent implements OnInit {
 
 
   addProduct() {
-    var val = {
+    const val = {
       productId : this.productId,
       productName : this.productName,
       productDescription : this.productDescription,
@@ -43,7 +43,7 @@ export class AddEditProductComponent implements OnInit {
   }
 
     updateProduct() {
-      var prd = {
+      const prd = {
           productId : this.productId,
           productName : this.productName,
           productDescription : this.productDescription,

@@ -1,27 +1,11 @@
-<button type="button" class="btn btn-primary m-2 float-end" data-bs-toggle="modal" data-bs-target="#exampleModal"
-  (click)="addClick()">
+<button type="button" class="btn btn-primary m-2 float-end"
+  (click)="openAddProductDialog()">
   Add Product
 </button>
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{ModalTitle}}</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" (click)="closeClick()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <app-add-edit-product [prd]="prd" (closeButtonClicked)="childPressClicked()" *ngIf="ActivateAddEditPrdComp">
-        </app-add-edit-product>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- Modal
+<app-add-edit-product [prd]="prd" *ngIf="ActivateAddEditPrdComp"></app-add-edit-product> -->
 
 <table class="table table-striped">
   <thead>
@@ -43,7 +27,7 @@
       <td>{{dataItem.productStock}}</td>
       <td>
         <button type="button" class="btn btn-light mr-1" data-bs-toggle="modal" data-bs-target="#exampleModal"
-          (click)="editClick(dataItem)" data-backdrop="static" data-keyboard="false">
+          (click)="editProductDialog(dataItem)" data-backdrop="static" data-keyboard="false">
           <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor">
             <path
               d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
