@@ -2,7 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { ApiserviceService } from 'src/app/apiservice.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditProductDialogComponent } from '../add-edit-product-dialog/add-edit-product-dialog.component';
-import { Product } from 'src/app/models/product';
+import {ApiResponse, Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-show-product',
@@ -46,11 +46,24 @@ export class ShowProductComponent implements OnInit {
     })
     .afterClosed()
     .subscribe((data: {product: Product}) => {
-      //alert(data.product.productName);
-
-       this.service.addProduct(data.product).subscribe(res => {
+       this.service.addProduct(data.product).subscribe(
+        (res:ApiResponse<Product[]>) => {
+         if(res.success){
          alert(res.message);
          this.refreshEmpList();
+        } else{
+          alert("ErrorFromAPI" + res.errors)
+        }
+       },
+
+       (error) => {
+        if(error.error && error.error.errors)
+        {
+          const errorDetails =JSON.stringify(error.error.errors)
+          alert("ErrorFromHttpResponse:" +errorDetails+"\n\n"+"Please Contact System Admin");
+        }else {
+          alert("An error occurred while processing request")
+        }
        });
     })
   }
@@ -70,11 +83,24 @@ export class ShowProductComponent implements OnInit {
     .subscribe((data: {product: Product}) => {
   
      //alert('id '+data.product.productId);
-      this.service.updateProduct(data.product).subscribe(res => {
-        console.log(res);
+      this.service.updateProduct(data.product).subscribe(
+      (res:ApiResponse<Product[]>) => {
+        if(res.success)
+        {
         alert(res.message);
         this.refreshEmpList();
-       });
+        }else{
+          alert("ErrorFromAPI:" + res.errors)
+        }},
+        (error) => {
+          if(error.error && error.error.errors)
+          {
+            const errorDetails =JSON.stringify(error.error.errors)
+            alert("ErrorFromHttpResponse:" +errorDetails+"\n\n"+"Please Contact System Admin");
+          }else {
+            alert("An error occurred while processing request")
+          }
+         });
     })
   }
 

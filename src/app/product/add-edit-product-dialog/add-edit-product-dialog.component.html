@@ -5,30 +5,34 @@
       <input type="hidden" class="form-control" formControlName="productId">
       <div class="input-group mb-3 mt-3">
         <span class="input-group-text">Name</span>
-        <input type="text" class="form-control" formControlName="productName">
+        <input type="text"  class="form-control" formControlName="productName">
       </div>
       
       <div class="input-group mb-3">
         <span class="input-group-text">Product Description</span>
-        <input type="text" class="form-control" formControlName="productDescription">
+        <input type="text"   class="form-control" formControlName="productDescription">
       </div>
   
       <div class="input-group mb-3">
         <span class="input-group-text">Product Price</span>
-        <input type="number" class="form-control" formControlName="productPrice">
-        <div *ngIf="formGroup.controls.productPrice.errors?.['min'] && formGroup.controls.productPrice.touched">Price should be greater than 0.</div>
+        <input type="text" class="form-control" pattern="^\d+(\.\d{1,2})?$" formControlName="productPrice">
       </div>
   
       <div class="input-group mb-3">
         <span class="input-group-text">Product Stock</span>
-        <input type="number" class="form-control" formControlName="productStock">
+        <input type="text" class="form-control" formControlName="productStock" pattern="^\d+$">
       </div>
     </div>
     <div mat-dialog-content>
-      <div *ngIf="formGroup.controls.productName.errors?.['maxlength']">
+      <div *ngIf="formGroup.controls.productStock.errors?.['pattern']" style="color: red;">
+        Decimal values are not allowed for product stock.
+      </div>
+      <div *ngIf="formGroup.controls.productPrice.errors?.['pattern'] " style="color: red;" >Product price must have up to 2 decimal places<br>
+        Example: 123.45</div>
+      <div *ngIf="formGroup.controls.productName.errors?.['maxlength']" style="color:red;">
         Product name cannot exceed 50 characters
       </div>
-      <div *ngIf="formGroup.controls.productDescription.errors?.['maxlength']">
+      <div *ngIf="formGroup.controls.productDescription.errors?.['maxlength']" style="color:red;">
         Product description cannot exceed 100 characters
       </div>
     </div>

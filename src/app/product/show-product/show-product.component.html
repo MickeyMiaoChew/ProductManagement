@@ -13,17 +13,19 @@
       <th>Product Id</th>
       <th>Product Name</th>
       <th>Description</th>
-      <th>Cost</th>
+      <th>Price</th>
       <th>Stock</th>
       <th>Action</th>
     </tr>
   </thead>
   <tbody>
+    <ng-container *ngIf="productList.length > 0; else noDataMessage">
     <tr *ngFor="let dataItem of productList">
+      
       <td>{{dataItem.productId}}</td>
       <td>{{dataItem.productName}}</td>
       <td>{{dataItem.productDescription}}</td>
-      <td>{{dataItem.productPrice}}</td>
+      <td>{{dataItem.productPrice | currency }}</td>
       <td>{{dataItem.productStock}}</td>
       <td>
         <button type="button" class="btn btn-light mr-1" data-bs-toggle="modal" 
@@ -43,5 +45,11 @@
         </button>
       </td>
     </tr>
+  </ng-container>
+  <ng-template #noDataMessage>
+    <tr>
+      <td colspan="6" class="text-center">No products available.</td>
+    </tr>
+  </ng-template>
   </tbody>
 </table>
