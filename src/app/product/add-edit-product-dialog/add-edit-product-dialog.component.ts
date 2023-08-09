@@ -39,7 +39,7 @@ export class AddEditProductDialogComponent implements OnInit {
       productStock: this.fb.nonNullable.control(0, Validators.required),
     });
      
-    //if got data pass in from parent means it's edit mode so we pass the values to the form
+    //Data Passed to Form
     if(this.data.product) {
       console.log('data'+this.data.product.productName +'ID'+this.data.product.productId)
     //  this.formGroup.controls.productId.patchValue(this.data.product.productId);

@@ -15,7 +15,7 @@
       <th>Description</th>
       <th>Cost</th>
       <th>Stock</th>
-      <th>Options</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
@@ -26,7 +26,7 @@
       <td>{{dataItem.productPrice}}</td>
       <td>{{dataItem.productStock}}</td>
       <td>
-        <button type="button" class="btn btn-light mr-1" data-bs-toggle="modal" data-bs-target="#exampleModal"
+        <button type="button" class="btn btn-light mr-1" data-bs-toggle="modal" 
           (click)="editProductDialog(dataItem)" data-backdrop="static" data-keyboard="false">
           <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor">
             <path

@@ -16,7 +16,7 @@ export class ShowProductComponent implements OnInit {
   dialogTitle = "";
   ActivateAddEditPrdComp = true;
   productNameFilter = "";
-  productListWithoutFilter: any = [];
+
   prd: any;
 
   ngOnInit(): void {
@@ -46,11 +46,11 @@ export class ShowProductComponent implements OnInit {
     })
     .afterClosed()
     .subscribe((data: {product: Product}) => {
-      alert(data.product.productName);
-      this.refreshEmpList();
-      //call ur api
+      //alert(data.product.productName);
+
        this.service.addProduct(data.product).subscribe(res => {
          alert(res.message);
+         this.refreshEmpList();
        });
     })
   }
@@ -69,8 +69,7 @@ export class ShowProductComponent implements OnInit {
     .afterClosed()
     .subscribe((data: {product: Product}) => {
   
-     alert('id '+data.product.productId);
-      //call ur api
+     //alert('id '+data.product.productId);
       this.service.updateProduct(data.product).subscribe(res => {
         console.log(res);
         alert(res.message);
@@ -81,22 +80,20 @@ export class ShowProductComponent implements OnInit {
 
 
 
-  deleteClick(item: any) {
-    alert(item.productId.toString());
+  deleteClick(item: Product) {
+    //alert(item.productId.toString());
      if (confirm('Are you sure??')) {
        this.service.deleteProduct(item.productId).subscribe(data => {
-         alert(data.toString());
-         this.refreshEmpList();
+        if(data.toString() =="true")
+        {
+          alert(item.productName+ " Delete Successful");
+          this.refreshEmpList();
+        }
        })
     }
   }
 
-  closeClick() {
-    //this.ActivateAddEditPrdComp = false;
-    //this.closebuttonclicked.emit({ActivateAddEditPrdComp: false})
-    this.refreshEmpList();
-  }
-
+ 
   refreshEmpList() {
     this.service.getProductList().subscribe(response => {
       this.productList = response.data;
